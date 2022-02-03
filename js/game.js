@@ -1,8 +1,10 @@
 "use strict";
 
 const guessFormContainer = document.querySelector(".guess-form-container");
+const resultsDiv = document.querySelector(".results");
+const resultsDivContainer = document.querySelector(".results-container");
 
-const todaysSolution = "smile";
+const todaysSolution = "blink";
 
 const finalResults = [];
 
@@ -38,6 +40,37 @@ const getDef = (word) => {
 //   console.log(data);
 // });
 
+const endGame = () => {
+  resultsDivContainer.classList.remove("hide");
+  guessFormContainer.classList.add("hide");
+  const textDiv = document.createElement("div");
+  textDiv.classList.add("results-text");
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "copy";
+  copyBtn.classList.add("copy");
+  copyBtn.addEventListener("click", (e) => {
+    // console.dir(e.target.previousElementSibling);
+    e.target.textContent = "copied!";
+    navigator.clipboard.writeText(e.target.previousElementSibling.innerText);
+    console.log(e.target.previousElementSibling.innerText);
+  });
+  finalResults.forEach((line) => {
+    const newLine = document.createElement("p");
+    newLine.textContent = line;
+    textDiv.append(newLine);
+  });
+  const closeBtn = document.createElement("p");
+  closeBtn.textContent = "close";
+  closeBtn.classList.add("close-results");
+  resultsDiv.append(textDiv);
+  resultsDiv.append(copyBtn);
+  resultsDiv.append(closeBtn);
+  closeBtn.addEventListener("click", () => {
+    resultsDivContainer.classList.add("hide");
+    guessFormContainer.classList.remove("hide");
+  });
+};
+
 const wordle = (guess, solution) => {
   const lineResults = [];
   for (let i = 0; i < guess.length; i++) {
@@ -53,13 +86,13 @@ const wordle = (guess, solution) => {
   if (guess.toLowerCase() === solution) {
     finalResults.unshift(`${finalResults.length}/6`);
     finalResults.unshift(`dre's wordle #1:`);
-    alert(finalResults.join("\n"));
+    endGame();
   }
   if (finalResults.length === 6 && guess !== solution) {
     finalResults.push(`better luck next time!`);
     finalResults.unshift(`word was: ${todaysSolution}`);
     finalResults.unshift(`dre's wordle #1:`);
-    alert(finalResults.join("\n"));
+    endGame();
   }
   return lineResults;
 };
@@ -74,10 +107,12 @@ guessFormContainer.addEventListener("submit", (e) => {
     if (e.target.classList.contains("form")) {
       getDef(guessInputValue).then((data) => {
         if (data) {
-          e.target.nextElementSibling[0].disabled = false;
-          e.target.nextElementSibling[0].focus();
-          e.target.nextElementSibling[1].disabled = false;
-          e.target.nextElementSibling[1].classList.remove("disabled");
+          if (!e.target.classList.contains("six")) {
+            e.target.nextElementSibling[0].disabled = false;
+            e.target.nextElementSibling[0].focus();
+            e.target.nextElementSibling[1].disabled = false;
+            e.target.nextElementSibling[1].classList.remove("disabled");
+          }
           guessLabel.innerHTML = "";
           guessInput.remove();
           let response = wordle(guessInputValue, todaysSolution);
