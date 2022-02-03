@@ -1,3 +1,7 @@
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
 body,
 p,
 label,
@@ -46,9 +50,10 @@ body {
 }
 
 .copy {
-  padding: 10px;
+  padding: 5px 10px 10px 10px;
   margin-top: 30px;
-  width: 100px;
+  width: 125px;
+  font-size: 24px;
 }
 
 .close-results {
