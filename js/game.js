@@ -41,6 +41,7 @@ const getDef = (word) => {
 // });
 
 const endGame = () => {
+  resultsDiv.innerHTML = "";
   resultsDivContainer.classList.remove("hide");
   guessFormContainer.classList.add("hide");
   const textDiv = document.createElement("div");
@@ -52,18 +53,19 @@ const endGame = () => {
     // console.dir(e.target.previousElementSibling);
     e.target.textContent = "copied!";
     navigator.clipboard.writeText(e.target.previousElementSibling.innerText);
-    console.log(e.target.previousElementSibling.innerText);
+    // console.log(e.target.previousElementSibling.innerText);
   });
   finalResults.forEach((line) => {
     const newLine = document.createElement("p");
     newLine.textContent = line;
+    newLine.style.textAlign = "center";
     textDiv.append(newLine);
   });
   const closeBtn = document.createElement("p");
   closeBtn.textContent = "close";
   closeBtn.classList.add("close-results");
   resultsDiv.append(textDiv);
-  resultsDiv.append(copyBtn);
+  // resultsDiv.append(copyBtn);
   resultsDiv.append(closeBtn);
   closeBtn.addEventListener("click", () => {
     resultsDivContainer.classList.add("hide");
