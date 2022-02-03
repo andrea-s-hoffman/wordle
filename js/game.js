@@ -1,23 +1,51 @@
 "use strict";
 
-const guessForm = document.querySelector(".guess-form");
+const guessFormContainer = document.querySelector(".guess-form-container");
 
 const todaysSolution = "smile";
 
 const finalResults = [];
 
+const getDef = (word) => {
+  const response = fetch(
+    `https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=ba34fa53-d819-4c69-b5a2-36b2cb31924e`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      if (data) {
+        if (data[0]) {
+          if (data[0].shortdef) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    })
+    .catch((err) => {
+      console.log("error", err);
+    });
+  return response;
+};
+
+// getDef("hjhl").then((data) => {
+//   console.log(data);
+// });
+// getDef("hello").then((data) => {
+//   console.log(data);
+// });
+
 const wordle = (guess, solution) => {
-  const response = [];
   const lineResults = [];
   for (let i = 0; i < guess.length; i++) {
     if (solution[i] === guess[i].toLowerCase()) {
-      response.push("G");
       lineResults.push("🟩");
     } else if (solution.includes(guess[i].toLowerCase())) {
-      response.push("Y");
       lineResults.push("🟨");
     } else {
-      response.push("B");
       lineResults.push("⬛");
     }
   }
@@ -26,7 +54,6 @@ const wordle = (guess, solution) => {
     finalResults.unshift(`${finalResults.length}/6`);
     finalResults.unshift(`dre's wordle #1:`);
     alert(finalResults.join("\n"));
-    console.log(finalResults);
   }
   if (finalResults.length === 6 && guess !== solution) {
     finalResults.push(`better luck next time!`);
@@ -34,32 +61,48 @@ const wordle = (guess, solution) => {
     finalResults.unshift(`dre's wordle #1:`);
     alert(finalResults.join("\n"));
   }
-  return response;
+  return lineResults;
 };
-// console.log(wordle("apple", todaysSolution));
-// console.log(wordle("bread", todaysSolution));
 
-guessForm.addEventListener("click", (e) => {
-  const guessInput = e.target.previousElementSibling;
-  const guessInputValue = e.target.previousElementSibling.value;
-  const guessLabel = guessInput.previousElementSibling;
-  if (e.target.classList.contains("check")) {
-    guessLabel.innerHTML = "";
-    guessInput.remove();
-    let response = wordle(guessInputValue, todaysSolution);
-    for (let i = 0; i < 5; i++) {
-      const box = document.createElement("div");
-      box.textContent = guessInputValue[i];
-      if (response[i] === "G") {
-        box.classList.add("green", "box");
-        guessLabel.append(box);
-      } else if (response[i] === "Y") {
-        box.classList.add("yellow", "box");
-        guessLabel.append(box);
-      } else {
-        box.classList.add("black", "box");
-        guessLabel.append(box);
-      }
+guessFormContainer.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // console.dir(e.target);
+  const guessInput = e.target[0];
+  const guessInputValue = e.target[0].value;
+  const guessLabel = e.target.firstElementChild;
+  if (guessInputValue.length === 5) {
+    if (e.target.classList.contains("form")) {
+      getDef(guessInputValue).then((data) => {
+        if (data) {
+          e.target.nextElementSibling[0].disabled = false;
+          e.target.nextElementSibling[0].focus();
+          e.target.nextElementSibling[1].disabled = false;
+          e.target.nextElementSibling[1].classList.remove("disabled");
+          guessLabel.innerHTML = "";
+          guessInput.remove();
+          let response = wordle(guessInputValue, todaysSolution);
+          if (response) {
+            for (let i = 0; i < 5; i++) {
+              const box = document.createElement("div");
+              box.textContent = guessInputValue[i];
+              if (response[i] === "🟩") {
+                box.classList.add("green", "box");
+                guessLabel.append(box);
+              } else if (response[i] === "🟨") {
+                box.classList.add("yellow", "box");
+                guessLabel.append(box);
+              } else {
+                box.classList.add("black", "box");
+                guessLabel.append(box);
+              }
+            }
+          }
+        } else {
+          alert("not a word!");
+        }
+      });
     }
+  } else {
+    alert("please guess a 5 letter word");
   }
 });

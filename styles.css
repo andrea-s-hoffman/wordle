@@ -1,7 +1,8 @@
 body,
 p,
 label,
-input {
+input,
+button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,15 +11,22 @@ input {
 body {
   display: flex;
   justify-content: center;
-  background-image: url("/200.gif");
+  background-image: url("/creed.gif");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
-.guess-form {
+.guess-form-container {
   display: flex;
   flex-direction: column;
-  margin: 30px;
+  margin: 80px 0;
+}
+
+.form {
+  display: flex;
+  margin: 10px 0 30px 0;
 }
 
 .guess-label {
@@ -29,7 +37,7 @@ input {
   height: 50px;
   width: 250px;
   font-size: 36px;
-  border-radius: 5px;
+  border-radius: 2px;
   border: 2px solid rgb(184, 184, 184);
 }
 
@@ -46,15 +54,15 @@ input {
 }
 
 .green {
-  background-color: green;
+  background-color: #50851b;
   color: white;
 }
 .yellow {
-  background-color: yellow;
+  background-color: #d1c328;
   color: black;
 }
 .black {
-  background-color: rgb(34, 34, 34);
+  background-color: #363a34;
   color: white;
 }
 
@@ -62,7 +70,12 @@ input {
   padding: 12px;
   background-color: black;
   color: white;
-  width: fit-content;
-  border-radius: 5px;
-  margin: 5px 0px 25px 0px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 2px;
+}
+
+.disabled {
+  background-color: grey;
 }

@@ -5,65 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/500937a533.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Dre's Wordle</title>
   </head>
   <body>
-    <form class="guess-form">
-      <label class="guess-label" for="guess1"></label>
-      <input
-        type="text"
-        name="guess1"
-        id="guess1"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-      <label class="guess-label"></label>
-      <input
-        type="text"
-        name="guess2"
-        id="guess2"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-      <label class="guess-label"></label>
-      <input
-        type="text"
-        name="guess3"
-        id="guess3"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-      <label class="guess-label"></label>
-      <input
-        type="text"
-        name="guess4"
-        id="guess4"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-      <label class="guess-label"></label>
-      <input
-        type="text"
-        name="guess5"
-        id="guess5"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-      <label class="guess-label"></label>
-      <input
-        type="text"
-        name="guess6"
-        id="guess6"
-        maxlength="5"
-        autocomplete="off"
-      />
-      <p class="check first">check</p>
-    </form>
-    <script src="/js/game.js"></script>
+    <div class="guess-form-container">
+      <form class="form one">
+        <label class="guess-label" for="guess1"></label>
+        <input
+          type="text"
+          name="guess1"
+          id="guess1"
+          maxlength="5"
+          autocomplete="off"
+        />
+        <button class="check"><i class="fas fa-chevron-right"></i></button>
+      </form>
+      <form class="form two">
+        <label class="guess-label" for="guess2"></label>
+        <input
+          type="text"
+          name="guess2"
+          id="guess2"
+          maxlength="5"
+          autocomplete="off"
+          disabled
+        />
+        <button class="check disabled" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+      <form class="form three">
+        <label class="guess-label" for="guess3"></label>
+        <input
+          type="text"
+          name="guess3"
+          id="guess3"
+          maxlength="5"
+          autocomplete="off"
+          disabled
+        />
+        <button class="check disabled" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+      <form class="form four">
+        <label class="guess-label" for="guess4"></label>
+        <input
+          type="text"
+          name="guess4"
+          id="guess4"
+          maxlength="5"
+          autocomplete="off"
+          disabled
+        />
+        <button class="check disabled" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+      <form class="form five">
+        <label class="guess-label" for="guess5"></label>
+        <input
+          type="text"
+          name="guess5"
+          id="guess5"
+          maxlength="5"
+          autocomplete="off"
+          disabled
+        />
+        <button class="check disabled" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+      <form class="form six">
+        <label class="guess-label" for="guess6"></label>
+        <input
+          type="text"
+          name="guess6"
+          id="guess6"
+          maxlength="5"
+          autocomplete="off"
+          disabled
+        />
+        <button class="check disabled" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </form>
+    </div>
+    <script type="module" src="/js/game.js"></script>
   </body>
 </html>
