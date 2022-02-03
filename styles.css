@@ -11,17 +11,24 @@ button {
 body {
   display: flex;
   justify-content: center;
+}
+
+.background {
   background-image: url("/creed.gif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 0;
 }
 
 .guess-form-container {
   display: flex;
   flex-direction: column;
   margin: 80px 0;
+  z-index: 1;
 }
 
 .form {
