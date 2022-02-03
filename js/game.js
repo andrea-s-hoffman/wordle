@@ -8,6 +8,8 @@ const todaysSolution = "blink";
 
 const finalResults = [];
 
+let wordleNumber = 2;
+
 const getDef = (word) => {
   const response = fetch(
     `https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=ba34fa53-d819-4c69-b5a2-36b2cb31924e`
@@ -87,13 +89,13 @@ const wordle = (guess, solution) => {
   finalResults.push(lineResults.join(""));
   if (guess.toLowerCase() === solution) {
     finalResults.unshift(`${finalResults.length}/6`);
-    finalResults.unshift(`dre's wordle #1:`);
+    finalResults.unshift(`dre's wordle #${wordleNumber}:`);
     endGame();
   }
   if (finalResults.length === 6 && guess !== solution) {
     finalResults.push(`better luck next time!`);
     finalResults.unshift(`word was: ${todaysSolution}`);
-    finalResults.unshift(`dre's wordle #1:`);
+    finalResults.unshift(`dre's wordle #${wordleNumber}:`);
     endGame();
   }
   return lineResults;
