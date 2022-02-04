@@ -31,7 +31,7 @@ const getWordle = async () => {
     .then((response) => response.json())
     .then((data) => {
       todaysSolution = data[wordleNumber].wordle;
-      console.log(todaysSolution);
+      // console.log(todaysSolution);
     });
 };
 
