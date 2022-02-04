@@ -3,6 +3,7 @@
 }
 
 body,
+h1,
 p,
 label,
 input,
@@ -17,10 +18,26 @@ body {
   justify-content: center;
 }
 
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px;
+}
+
 .background {
-  background-image: url("/creed-cartwheel.gif");
+  background-image: url("/2z33v1f1e5711.jpeg");
   background-size: cover;
-  background-position: center;
+  background-position: right 10% center;
   background-repeat: no-repeat;
   height: 100vh;
   width: 100vw;
@@ -63,13 +80,14 @@ body {
 .guess-form-container {
   display: flex;
   flex-direction: column;
-  margin: 80px 0;
   z-index: 1;
+  align-items: center;
+  height: 100vh;
+  justify-content: space-evenly;
 }
 
 .form {
   display: flex;
-  margin: 10px 0 30px 0;
 }
 
 .guess-label {
