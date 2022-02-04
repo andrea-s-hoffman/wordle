@@ -104,11 +104,29 @@ const endGame = () => {
 
 const wordle = (guess, solution) => {
   const lineResults = [];
+  const checked = [];
   for (let i = 0; i < guess.length; i++) {
+    checked.push(guess[i]);
     if (solution[i] === guess[i].toLowerCase()) {
       lineResults.push("🟩");
     } else if (solution.includes(guess[i].toLowerCase())) {
-      lineResults.push("🟨");
+      let howManySolution = 0;
+      let howManyChecked = 0;
+      solution.split("").forEach((letter) => {
+        if (guess.includes(letter)) {
+          howManySolution++;
+        }
+      });
+      checked.forEach((letter) => {
+        if (guess.includes(letter)) {
+          howManyChecked++;
+        }
+      });
+      if (howManyChecked < howManySolution) {
+        lineResults.push("🟨");
+      } else {
+        lineResults.push("⬛");
+      }
     } else {
       lineResults.push("⬛");
     }
