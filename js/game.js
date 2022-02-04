@@ -4,11 +4,38 @@ const guessFormContainer = document.querySelector(".guess-form-container");
 const resultsDiv = document.querySelector(".results");
 const resultsDivContainer = document.querySelector(".results-container");
 
-const todaysSolution = "zebra";
-
 const finalResults = [];
 
-let wordleNumber = 3;
+let wordleNumber;
+
+let todaysSolution;
+
+const getWordleNumber = () => {
+  // one day is 86400000 ms
+  // 1644001201378 feb 4 at 2pm
+  // 223200000 62 hours
+  const startTime = 1643778001378;
+  // ^^ feb 2 at 12am apparently
+  const date = new Date();
+  const time = date.getTime();
+  const daysSpanned = Math.floor((time - startTime) / 86400000);
+  wordleNumber = daysSpanned;
+};
+
+getWordleNumber();
+
+const getWordle = async () => {
+  await fetch(
+    `https://us-central1-wordle-8c67e.cloudfunctions.net/api/dres-wordle`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      todaysSolution = data[wordleNumber].wordle;
+      console.log(todaysSolution);
+    });
+};
+
+getWordle();
 
 const getDef = (word) => {
   const response = fetch(
