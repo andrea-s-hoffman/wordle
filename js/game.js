@@ -102,27 +102,29 @@ const endGame = () => {
   });
 };
 
-const wordle = (guess, solution) => {
+const wordle = (input, solution) => {
+  const guess = input.toLowerCase();
+  console.log(guess);
   const lineResults = [];
   const checked = [];
   for (let i = 0; i < guess.length; i++) {
     checked.push(guess[i]);
-    if (solution[i] === guess[i].toLowerCase()) {
+    if (solution[i] === guess[i]) {
       lineResults.push("🟩");
-    } else if (solution.includes(guess[i].toLowerCase())) {
+    } else if (solution.includes(guess[i])) {
       let howManySolution = 0;
       let howManyChecked = 0;
       solution.split("").forEach((letter) => {
-        if (guess.includes(letter)) {
+        if (guess[i] === letter) {
           howManySolution++;
         }
       });
       checked.forEach((letter) => {
-        if (guess.includes(letter)) {
+        if (guess[i] === letter) {
           howManyChecked++;
         }
       });
-      if (howManyChecked < howManySolution) {
+      if (howManyChecked <= howManySolution) {
         lineResults.push("🟨");
       } else {
         lineResults.push("⬛");
