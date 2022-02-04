@@ -4,11 +4,11 @@ const guessFormContainer = document.querySelector(".guess-form-container");
 const resultsDiv = document.querySelector(".results");
 const resultsDivContainer = document.querySelector(".results-container");
 
-const todaysSolution = "blink";
+const todaysSolution = "zebra";
 
 const finalResults = [];
 
-let wordleNumber = 2;
+let wordleNumber = 3;
 
 const getDef = (word) => {
   const response = fetch(
