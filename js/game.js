@@ -74,6 +74,16 @@ const getDef = (word) => {
 // });
 
 const endGame = () => {
+  const showResults = document.createElement("p");
+  showResults.textContent = "my results";
+  showResults.classList.add("show-results");
+  guessFormContainer.append(showResults);
+  window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("show-results")) {
+      document.querySelector(".results-container").classList.remove("hide");
+      document.querySelector(".guess-form-container").classList.add("hide");
+    }
+  });
   inputs.forEach((i) => {
     i.disabled = true;
   });
