@@ -56,7 +56,7 @@ h1 {
 }
 
 .results {
-  padding: 50px 50px 25px 50px;
+  padding: 35px 35px 0px 35px;
   background-color: #4b4b4b;
   color: white;
   border-radius: 5px;
@@ -64,6 +64,14 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.box-result-p {
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+.box-result-p-space {
+  margin-bottom: 25px;
 }
 
 .copy {

@@ -3,12 +3,16 @@
 const guessFormContainer = document.querySelector(".guess-form-container");
 const resultsDiv = document.querySelector(".results");
 const resultsDivContainer = document.querySelector(".results-container");
+const inputs = document.querySelectorAll("input");
+const buttons = document.querySelectorAll("button");
 
 const finalResults = [];
 
 let wordleNumber;
 
 let todaysSolution;
+
+let gameEnd = false;
 
 const getWordleNumber = () => {
   // one day is 86400000 ms
@@ -70,6 +74,14 @@ const getDef = (word) => {
 // });
 
 const endGame = () => {
+  inputs.forEach((i) => {
+    i.disabled = true;
+  });
+  buttons.forEach((b) => {
+    b.disabled = true;
+  });
+  buttons[finalResults.length - 1].classList.add("disabled");
+  guessFormContainer.removeEventListener("submit", submitHandler);
   resultsDiv.innerHTML = "";
   resultsDivContainer.classList.remove("hide");
   guessFormContainer.classList.add("hide");
@@ -85,10 +97,15 @@ const endGame = () => {
   //   console.log(e.target.previousElementSibling.innerText);
   // });
   // console.log(finalResults);
-  finalResults.forEach((line) => {
+  finalResults.forEach((line, index) => {
     const newLine = document.createElement("p");
     newLine.textContent = line;
     newLine.style.textAlign = "center";
+    if (index) {
+      newLine.classList.add("box-result-p");
+    } else {
+      newLine.classList.add("box-result-p-space");
+    }
     textDiv.append(newLine);
   });
   const closeBtn = document.createElement("p");
@@ -102,7 +119,6 @@ const endGame = () => {
     guessFormContainer.classList.remove("hide");
   });
 };
-
 const wordle = (input, solution) => {
   const guess = input.toLowerCase();
   const lineResults = [];
@@ -151,22 +167,26 @@ const wordle = (input, solution) => {
   }
   finalResults.push(lineResults.join(""));
   if (guess.toLowerCase() === solution) {
-    finalResults.unshift(`${finalResults.length}/6`);
-    finalResults.unshift(`dre's wordle #${wordleNumber}:`);
+    gameEnd = true;
+
+    finalResults.unshift(
+      `dre's wordle #${wordleNumber}: ${finalResults.length}/6`
+    );
     endGame();
   }
   if (finalResults.length === 6 && guess !== solution) {
+    gameEnd = true;
+
     finalResults.push(`better luck next time!`);
-    finalResults.unshift(`word was: ${todaysSolution}`);
-    finalResults.unshift(`dre's wordle #${wordleNumber}:`);
+    finalResults.unshift(`dre's wordle #${wordleNumber}:   x/6`);
     endGame();
   }
   return lineResults;
 };
 
-guessFormContainer.addEventListener("submit", (e) => {
+const submitHandler = (e) => {
   e.preventDefault();
-  // console.dir(e.target);
+  console.dir(e.target);
   const guessInput = e.target[0];
   const guessInputValue = e.target[0].value;
   const guessLabel = e.target.firstElementChild;
@@ -174,7 +194,7 @@ guessFormContainer.addEventListener("submit", (e) => {
     if (e.target.classList.contains("form")) {
       getDef(guessInputValue).then((data) => {
         if (data) {
-          if (!e.target.classList.contains("six")) {
+          if (!e.target.classList.contains("six") && !gameEnd) {
             e.target.nextElementSibling[0].disabled = false;
             e.target.nextElementSibling[0].focus();
             e.target.nextElementSibling[1].disabled = false;
@@ -182,6 +202,7 @@ guessFormContainer.addEventListener("submit", (e) => {
           }
           guessLabel.innerHTML = "";
           guessInput.remove();
+          e.target.childNodes[4].disabled = true;
           let response = wordle(guessInputValue, todaysSolution);
           if (response) {
             for (let i = 0; i < 5; i++) {
@@ -207,4 +228,5 @@ guessFormContainer.addEventListener("submit", (e) => {
   } else {
     alert("please guess a 5 letter word");
   }
-});
+};
+guessFormContainer.addEventListener("submit", submitHandler);
