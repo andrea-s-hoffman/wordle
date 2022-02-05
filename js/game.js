@@ -75,15 +75,16 @@ const endGame = () => {
   guessFormContainer.classList.add("hide");
   const textDiv = document.createElement("div");
   textDiv.classList.add("results-text");
-  const copyBtn = document.createElement("button");
-  copyBtn.textContent = "copy";
-  copyBtn.classList.add("copy");
-  copyBtn.addEventListener("click", (e) => {
-    // console.dir(e.target.previousElementSibling);
-    e.target.textContent = "copied!";
-    navigator.clipboard.writeText(e.target.previousElementSibling.innerText);
-    // console.log(e.target.previousElementSibling.innerText);
-  });
+  // const copyBtn = document.createElement("button");
+  // copyBtn.textContent = "copy";
+  // copyBtn.classList.add("copy");
+  // copyBtn.addEventListener("click", (e) => {
+  //   console.dir(e.target.previousElementSibling);
+  //   e.target.textContent = "copied!";
+  //   navigator.clipboard.writeText(e.target.previousElementSibling.innerText);
+  //   console.log(e.target.previousElementSibling.innerText);
+  // });
+  // console.log(finalResults);
   finalResults.forEach((line) => {
     const newLine = document.createElement("p");
     newLine.textContent = line;
@@ -104,7 +105,6 @@ const endGame = () => {
 
 const wordle = (input, solution) => {
   const guess = input.toLowerCase();
-  console.log(guess);
   const lineResults = [];
   const checked = [];
   for (let i = 0; i < guess.length; i++) {

@@ -101,6 +101,7 @@ input {
   border-radius: 2px;
   border: 2px solid rgb(184, 184, 184);
   text-transform: uppercase;
+  letter-spacing: 10px;
 }
 
 .box {
