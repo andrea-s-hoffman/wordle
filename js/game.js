@@ -34,6 +34,7 @@ const getWordle = async () => {
   )
     .then((response) => response.json())
     .then((data) => {
+      // console.log(data);
       todaysSolution = data[wordleNumber].wordle;
       // console.log(todaysSolution);
     });
@@ -66,18 +67,12 @@ const getDef = (word) => {
   return response;
 };
 
-// getDef("hjhl").then((data) => {
-//   console.log(data);
-// });
-// getDef("hello").then((data) => {
-//   console.log(data);
-// });
-
 const endGame = () => {
-  const showResults = document.createElement("p");
+  const showResults = document.createElement("button");
   showResults.textContent = "my results";
   showResults.classList.add("show-results");
-  guessFormContainer.append(showResults);
+  document.querySelector("header").append(showResults);
+  guessFormContainer.style.marginTop = "25px";
   window.addEventListener("click", (e) => {
     if (e.target.classList.contains("show-results")) {
       document.querySelector(".results-container").classList.remove("hide");
@@ -90,7 +85,9 @@ const endGame = () => {
   buttons.forEach((b) => {
     b.disabled = true;
   });
-  buttons[finalResults.length - 1].classList.add("disabled");
+  if (finalResults.length < 6) {
+    buttons[finalResults.length - 1].classList.add("disabled");
+  }
   guessFormContainer.removeEventListener("submit", submitHandler);
   resultsDiv.innerHTML = "";
   resultsDivContainer.classList.remove("hide");
@@ -136,23 +133,32 @@ const wordle = (input, solution) => {
   for (let i = 0; i < guess.length; i++) {
     checked.push(guess[i]);
     if (solution[i] === guess[i]) {
-      let howManySolution = 0;
-      let howManyChecked = 0;
-      solution.split("").forEach((letter) => {
-        if (guess[i] === letter) {
-          howManySolution++;
-        }
-      });
-      checked.forEach((letter) => {
-        if (guess[i] === letter) {
-          howManyChecked++;
-        }
-      });
-      if (howManyChecked <= howManySolution) {
-        lineResults.push("🟩");
-      } else {
-        lineResults.push("⬛");
-      }
+      // let howManySolution = 0;
+      // let howManyChecked = 0;
+
+      // solution.split("").forEach((letter) => {
+      //   if (guess[i] === letter) {
+      //     howManySolution++;
+      //   }
+      // });
+      // checked.forEach((letter) => {
+      //   if (guess[i] === letter) {
+      //     howManyChecked++;
+      //   }
+      // });
+      // console.log(
+      //   "equals one",
+      //   guess[i],
+      //   "solution:",
+      //   howManySolution,
+      //   "checked",
+      //   howManyChecked
+      // );
+      // if (howManyChecked <= howManySolution) {
+      lineResults.push("🟩");
+      // } else {
+      //   lineResults.push("⬛");
+      // }
     } else if (solution.includes(guess[i])) {
       let howManySolution = 0;
       let howManyChecked = 0;
@@ -166,8 +172,28 @@ const wordle = (input, solution) => {
           howManyChecked++;
         }
       });
+      console.log(
+        "includes one",
+        guess[i],
+        "solution:",
+        howManySolution,
+        "checked",
+        howManyChecked
+      );
       if (howManyChecked <= howManySolution) {
-        lineResults.push("🟨");
+        // console.log(guess[i]);
+        let isThereAnotherGuessedOfTheSameLetterThatWillBeGreen = false;
+        for (let j = 0; j < solution.length; j++) {
+          if (guess[j] === solution[j] && guess[j] === guess[i]) {
+            // console.log("test", guess[i]);
+            isThereAnotherGuessedOfTheSameLetterThatWillBeGreen = true;
+          }
+        }
+        if (isThereAnotherGuessedOfTheSameLetterThatWillBeGreen) {
+          lineResults.push("⬛");
+        } else {
+          lineResults.push("🟨");
+        }
       } else {
         lineResults.push("⬛");
       }
@@ -180,7 +206,7 @@ const wordle = (input, solution) => {
     gameEnd = true;
 
     finalResults.unshift(
-      `dre's wordle #${wordleNumber}: ${finalResults.length}/6`
+      `dre's wordle #${wordleNumber + 1}: ${finalResults.length}/6`
     );
     endGame();
   }
@@ -188,7 +214,7 @@ const wordle = (input, solution) => {
     gameEnd = true;
 
     finalResults.push(`better luck next time!`);
-    finalResults.unshift(`dre's wordle #${wordleNumber}:   x/6`);
+    finalResults.unshift(`dre's wordle #${wordleNumber + 1}:   x/6`);
     endGame();
   }
   return lineResults;
@@ -196,7 +222,6 @@ const wordle = (input, solution) => {
 
 const submitHandler = (e) => {
   e.preventDefault();
-  console.dir(e.target);
   const guessInput = e.target[0];
   const guessInputValue = e.target[0].value;
   const guessLabel = e.target.firstElementChild;

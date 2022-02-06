@@ -24,6 +24,8 @@ header {
   left: 0;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -32,14 +34,17 @@ h1,
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 700;
-  margin: 10px;
+  margin-top: 10px;
 }
 
 .show-results {
-  position: absolute;
   font-size: 16px;
-  padding: 10px;
-  top: 20px;
+  padding: 10px 20px;
+  z-index: 999;
+  background-color: #1b1b1b;
+  color: white;
+  border: none;
+  border-radius: 3px;
 }
 
 .background {
@@ -104,7 +109,7 @@ h1,
 
 .form {
   display: flex;
-  margin: 25px;
+  margin: 3vh;
 }
 
 .guess-label {
@@ -124,7 +129,7 @@ input {
 .box {
   width: 50px;
   height: 50px;
-  border: 1px solid black;
+  border: 1px solid #1b1b1b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,7 +144,7 @@ input {
 }
 .yellow {
   background-color: #d1c328;
-  color: black;
+  color: #1b1b1b;
 }
 .black {
   background-color: #363a34;
@@ -148,7 +153,7 @@ input {
 
 .check {
   padding: 12px;
-  background-color: black;
+  background-color: #1b1b1b;
   color: white;
   width: 50px;
   height: 50px;
