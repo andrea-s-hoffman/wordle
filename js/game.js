@@ -23,6 +23,7 @@ const getWordleNumber = () => {
   const date = new Date();
   const time = date.getTime();
   const daysSpanned = Math.floor((time - startTime) / 86400000);
+  // console.log(daysSpanned);
   wordleNumber = daysSpanned;
 };
 
@@ -172,14 +173,6 @@ const wordle = (input, solution) => {
           howManyChecked++;
         }
       });
-      console.log(
-        "includes one",
-        guess[i],
-        "solution:",
-        howManySolution,
-        "checked",
-        howManyChecked
-      );
       if (howManyChecked <= howManySolution) {
         // console.log(guess[i]);
         let isThereAnotherGuessedOfTheSameLetterThatWillBeGreen = false;
