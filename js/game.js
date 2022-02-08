@@ -14,6 +14,8 @@ let todaysSolution;
 
 let gameEnd = false;
 
+document.querySelector("#guess1").focus();
+
 const getWordleNumber = () => {
   // one day is 86400000 ms
   // 1644001201378 feb 4 at 2pm
@@ -206,6 +208,7 @@ const wordle = (input, solution) => {
   if (finalResults.length === 6 && guess !== solution) {
     gameEnd = true;
 
+    finalResults.push(`word was: ${todaysSolution}`);
     finalResults.push(`better luck next time!`);
     finalResults.unshift(`dre's wordle #${wordleNumber + 1}:   x/6`);
     endGame();
