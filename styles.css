@@ -168,3 +168,13 @@ input {
 .hide {
   display: none;
 }
+
+.creed-thought-h {
+  font-weight: bolder;
+  font-size: 18px;
+  margin: 20px 0 10px 0;
+}
+
+.creed-thought-p {
+  width: 250px;
+}
