@@ -47,7 +47,7 @@ const creedThoughts = [
 ];
 
 const getCreedThought = () => {
-  return creedThoughts[Math.floor(Math.random() * creedThoughts.length)];
+  return creedThoughts[Math.floor(Math.random() * creedThoughts.length - 1)];
 };
 
 module.exports = getCreedThought;
